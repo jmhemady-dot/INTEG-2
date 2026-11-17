@@ -1,0 +1,584 @@
+{
+  "schema": "clarification-questions/v1",
+  "generated_at": "2026-11-17T12:55:06Z",
+  "user_input": "Convert the entire project at C:\\Projects\\INTEG-2 into a working MERN application (MongoDB, Express, React, Node), replacing/removing PHP rather than maintaining PHP coexistence. User explicitly chose full_project scope, MongoDB, and replace/remove PHP in scope. This is an end-to-end migration request, not a plan-only request. First inspect the full repository and current worktree carefully; preserve unrelated user changes. Follow your applicable team-charters and modernization workflow. Preserve existing behavior/features, routes, data semantics, and UX as faithfully as possible; address unclear product behavior by asking the user rather than guessing. Migrate schema/data considerations to MongoDB, implement the runnable app and necessary documentation/config updates, and run appropriate tests/build validation. Keep edits precise; report files changed, migration decisions, verification results, and remaining gaps. Bounded stop: finish only when a validated working MERN conversion is achieved, or report a concrete blocker and the strongest completed outcome; do not make unrelated improvements.",
+  "title": "Full-project MERN rewrite",
+  "assessment_snapshot": {
+    "intro": "The repository recon indicates a feasible full-project rewrite with existing frontend and backend components:",
+    "bullets": [
+      "8,591 LOC: PHP 6,413 and JavaScript 2,178; 8 visible top-level directories.",
+      "The current shape includes legacy PHP pages/admin/config, a React/Vite client, an Express/Mongoose server, uploads/assets, and two timestamped migration backup directories.",
+      "The requested scope is the entire project, MongoDB is selected, and PHP replacement/removal is in scope; exact framework versions, UI library, data migration strategy, and rewrite output location remain undecided.",
+      "Feasibility verdict: feasible; both frontend and backend are already present, and the target MERN stack is specified."
+    ]
+  },
+  "proposed_outcome": "Convert the entire application to a runnable MongoDB, Express, React, and Node application, removing PHP from the in-scope solution while preserving existing behavior, routes, data semantics, and user experience. Confirm the remaining framework/UI/data migration and output-location choices before implementation; validate with appropriate tests and builds.",
+  "scope": [
+    "frontend",
+    "backend",
+    "generic"
+  ],
+  "status": "awaiting_answers",
+  "questions": [
+    {
+      "id": "F1",
+      "kit": "frontend",
+      "field": "target.framework",
+      "title": "React version",
+      "question": "Which React major version should the rewritten frontend target?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": null,
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "React 18",
+          "label": "React 18"
+        },
+        {
+          "value": "React 19",
+          "label": "React 19"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F2",
+      "kit": "frontend",
+      "field": "target.component_library",
+      "title": "Component library",
+      "question": "What component/UI library should the React frontend use? You can choose an existing library to retain if compatible, name another, or provide a custom choice.",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "Preserve the existing UI library if compatible",
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Preserve the existing UI library if compatible",
+          "label": "Preserve the existing UI library if compatible"
+        },
+        {
+          "value": "shadcn/ui",
+          "label": "shadcn/ui"
+        },
+        {
+          "value": "MUI",
+          "label": "MUI (Material UI)"
+        },
+        {
+          "value": "Ant Design",
+          "label": "Ant Design"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F3",
+      "kit": "frontend",
+      "field": "visual.screenshots",
+      "title": "Current UI references",
+      "question": "Provide paths to screenshots/screen recordings of the current UI, or a URL to a staging/production version or Figma that shows the screens and important states. If none are available, say so.",
+      "importance": "required",
+      "impact": 5,
+      "recommended": null,
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "type": "text",
+      "options": []
+    },
+    {
+      "id": "F4",
+      "kit": "frontend",
+      "field": "visual.design_system",
+      "title": "Design system source",
+      "question": "Which design system or design-token source should guide the UI rewrite? Choose the extracted existing styles if that is the intended source, or provide a design-system/Figma/Storybook reference.",
+      "importance": "required",
+      "impact": 4,
+      "recommended": "Match existing pixel-by-pixel using extracted CSS custom properties",
+      "default": "Match existing pixel-by-pixel using extracted CSS custom properties",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Match existing pixel-by-pixel using extracted CSS custom properties",
+          "label": "Match existing pixel-by-pixel using extracted CSS custom properties"
+        },
+        {
+          "value": "Use a supplied design system reference",
+          "label": "Use a supplied design system reference (provide its URL/path as Other)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F5",
+      "kit": "frontend",
+      "field": "compliance.accessibility",
+      "title": "Accessibility target",
+      "question": "Which accessibility standard should the rewritten frontend target?",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": "WCAG 2.1 AA",
+      "default": "WCAG 2.1 AA",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "WCAG 2.1 AA",
+          "label": "WCAG 2.1 AA"
+        },
+        {
+          "value": "WCAG 2.2 AA",
+          "label": "WCAG 2.2 AA"
+        },
+        {
+          "value": "Section 508",
+          "label": "Section 508"
+        },
+        {
+          "value": "none / not required",
+          "label": "None / not required"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F6",
+      "kit": "frontend",
+      "field": "compatibility.browsers",
+      "title": "Browser targets",
+      "question": "Which browser/runtime compatibility targets must the frontend support?",
+      "importance": "recommended",
+      "impact": 2,
+      "recommended": "modern evergreen (Chrome, Firefox, Safari, Edge — latest 2 major versions)",
+      "default": "modern evergreen (Chrome, Firefox, Safari, Edge — latest 2 major versions)",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "modern evergreen (Chrome, Firefox, Safari, Edge — latest 2 major versions)",
+          "label": "Modern evergreen (latest 2 major versions)"
+        },
+        {
+          "value": "Other specified browser list",
+          "label": "Other specified browser list (provide details as Other)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F7",
+      "kit": "frontend",
+      "field": "responsive.breakpoints",
+      "title": "Responsive strategy",
+      "question": "What responsive/adaptive strategy should the rewritten UI use?",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": "mobile-first using existing breakpoints detected from codebase",
+      "default": "mobile-first using existing breakpoints detected from codebase",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "mobile-first using existing breakpoints detected from codebase",
+          "label": "Mobile-first using existing breakpoints detected from codebase"
+        },
+        {
+          "value": "desktop-first",
+          "label": "Desktop-first"
+        },
+        {
+          "value": "desktop-only",
+          "label": "Desktop-only"
+        },
+        {
+          "value": "match current layout exactly",
+          "label": "Match current layout exactly"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F8",
+      "kit": "frontend",
+      "field": "i18n.locales",
+      "title": "Locales in scope",
+      "question": "Which locales are in scope? List locale codes, say none, or indicate that current locales should be preserved.",
+      "importance": "optional",
+      "impact": 1,
+      "recommended": null,
+      "default": "preserve current locales; keep existing i18n library if present",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "type": "text",
+      "options": []
+    },
+    {
+      "id": "F9",
+      "kit": "frontend",
+      "field": "state_mgmt.preference",
+      "title": "Client state management",
+      "question": "Do you have a preference for client-side state management?",
+      "importance": "optional",
+      "impact": 2,
+      "recommended": "preserve existing pattern if identifiable; otherwise recommend minimal (component state + server-state library)",
+      "default": "preserve existing pattern if identifiable; otherwise recommend minimal (component state + server-state library)",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "preserve existing pattern if identifiable; otherwise recommend minimal (component state + server-state library)",
+          "label": "Preserve existing pattern; otherwise use a minimal approach"
+        },
+        {
+          "value": "Redux Toolkit",
+          "label": "Redux Toolkit"
+        },
+        {
+          "value": "Zustand",
+          "label": "Zustand"
+        },
+        {
+          "value": "server state only (React Query / SWR)",
+          "label": "Server state only (React Query / SWR)"
+        },
+        {
+          "value": "none / component state is enough",
+          "label": "No additional state library"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F10",
+      "kit": "frontend",
+      "field": "routing.preference",
+      "title": "Frontend routing",
+      "question": "Which client-side routing library/strategy should the React application use?",
+      "importance": "optional",
+      "impact": 2,
+      "recommended": "use the de-facto router for the chosen target framework",
+      "default": "use the de-facto router for the chosen target framework",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "use the de-facto router for the chosen target framework",
+          "label": "Use the de-facto React router"
+        },
+        {
+          "value": "React Router",
+          "label": "React Router"
+        },
+        {
+          "value": "TanStack Router",
+          "label": "TanStack Router"
+        },
+        {
+          "value": "match existing",
+          "label": "Match existing routing where compatible"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B1",
+      "kit": "backend",
+      "field": "target.framework",
+      "title": "Express and Node versions",
+      "question": "Which Express and Node.js major versions should the rewritten backend target?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "Express 5 / Node 24 LTS",
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Express 4 / Node 22 LTS",
+          "label": "Express 4 / Node 22 LTS"
+        },
+        {
+          "value": "Express 5 / Node 22 LTS",
+          "label": "Express 5 / Node 22 LTS"
+        },
+        {
+          "value": "Express 5 / Node 24 LTS",
+          "label": "Express 5 / Node 24 LTS"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B2",
+      "kit": "backend",
+      "field": "api.contract_preservation",
+      "title": "API contract policy",
+      "question": "Should all existing API endpoints, payloads, and status codes remain unchanged? Choose the applicable contract-preservation policy.",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "must preserve",
+      "default": "must preserve",
+      "prefilled": true,
+      "prefilled_value": "must preserve",
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "must preserve",
+          "label": "Must preserve existing endpoints, payloads, and status codes"
+        },
+        {
+          "value": "can break with versioning",
+          "label": "Breaking changes allowed with versioning"
+        },
+        {
+          "value": "can break",
+          "label": "Breaking changes allowed; redesign permitted"
+        },
+        {
+          "value": "partial: specify endpoints",
+          "label": "Preserve only specified endpoints (provide list as Other)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B3",
+      "kit": "backend",
+      "field": "data.migration_strategy",
+      "title": "MongoDB data migration",
+      "question": "Which approach should be used to migrate existing schema/data into MongoDB?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "TBD / assess in research phase",
+      "default": "TBD / assess in research phase",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "in-place",
+          "label": "In-place (alter existing schema/database)"
+        },
+        {
+          "value": "dual-write",
+          "label": "Dual-write alongside the old database during transition"
+        },
+        {
+          "value": "new schema",
+          "label": "Create a MongoDB schema and ETL existing data"
+        },
+        {
+          "value": "no migration",
+          "label": "No existing data migration; API-only rewrite"
+        },
+        {
+          "value": "TBD / assess in research phase",
+          "label": "Assess the source data and decide during the research phase"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B4",
+      "kit": "backend",
+      "field": "auth.framework",
+      "title": "Authentication and authorization",
+      "question": "Which authentication/authorization framework or policy should be used?",
+      "importance": "recommended",
+      "impact": 4,
+      "recommended": "preserve existing auth mechanism; detect from codebase",
+      "default": "preserve existing auth mechanism; detect from codebase",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "preserve existing auth mechanism; detect from codebase",
+          "label": "Preserve the existing mechanism and identify it during analysis"
+        },
+        {
+          "value": "Passport.js",
+          "label": "Passport.js"
+        },
+        {
+          "value": "Other existing identity provider",
+          "label": "Other existing identity provider (specify as Other)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "B5",
+      "kit": "backend",
+      "field": "nfr.sla",
+      "title": "Service-level targets",
+      "question": "What non-functional service-level targets should the migrated backend meet (such as latency, throughput, or availability)?",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": null,
+      "default": "match current production baseline; no regression",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "type": "text",
+      "options": []
+    },
+    {
+      "id": "G1",
+      "kit": "generic",
+      "field": "success.definition",
+      "title": "Definition of done",
+      "question": "What outcome will define success? You can confirm or refine the supplied feature-parity goal.",
+      "importance": "required",
+      "impact": 5,
+      "recommended": null,
+      "default": "feature parity with the current system; all existing user-facing behaviors preserved",
+      "prefilled": true,
+      "prefilled_value": "Preserve existing behavior/features, routes, data semantics, and UX as faithfully as possible; deliver a runnable MERN application with appropriate tests/build validation.",
+      "answer": null,
+      "depends_on": null,
+      "type": "text",
+      "options": []
+    },
+    {
+      "id": "G2",
+      "kit": "generic",
+      "field": "out_of_scope",
+      "title": "Out-of-scope items",
+      "question": "Are any project components or behaviors explicitly out of scope? The prompt currently includes the full project and PHP replacement/removal.",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": null,
+      "default": "no explicit exclusions; agent will infer from project structure",
+      "prefilled": true,
+      "prefilled_value": "No project components excluded; the entire project, including replacing/removing PHP, is in scope.",
+      "answer": null,
+      "depends_on": null,
+      "type": "text",
+      "options": []
+    },
+    {
+      "id": "G3",
+      "kit": "generic",
+      "field": "existing_tests.posture",
+      "title": "Existing test policy",
+      "question": "How should the existing test suite be handled during the rewrite?",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": "must pass",
+      "default": "must pass",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "must pass",
+          "label": "Must pass; no regressions"
+        },
+        {
+          "value": "can rewrite",
+          "label": "May be replaced with equivalent tests for the new stack"
+        },
+        {
+          "value": "ignore",
+          "label": "Ignore existing tests and write new tests from scratch"
+        },
+        {
+          "value": "partial: specify suites",
+          "label": "Require only specified suites to pass (provide details as Other)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "G4",
+      "kit": "generic",
+      "field": "target.output_location",
+      "title": "Rewrite output location",
+      "question": "Where should the rewritten MERN project be created? Choose in-place replacement or a new sibling directory; use Other for a custom path.",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "INTEG-2-new",
+      "default": "new sibling directory: INTEG-2-new",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": null,
+      "depends_on": null,
+      "options": [
+        {
+          "value": "INTEG-2-new",
+          "label": "New sibling directory: INTEG-2-new"
+        },
+        {
+          "value": "in-place",
+          "label": "In-place in C:\\Projects\\INTEG-2"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "G5",
+      "kit": "generic",
+      "field": "constraints.additional",
+      "title": "Additional constraints",
+      "question": "Add any requirements, exclusions, dependencies, compliance rules, or operational constraints not covered above, or leave the suggested value unchanged.",
+      "importance": "optional",
+      "impact": 2,
+      "recommended": null,
+      "default": "None beyond the decisions listed in this specification.",
+      "prefilled": true,
+      "prefilled_value": "None beyond the decisions listed in this specification.",
+      "answer": null,
+      "depends_on": null,
+      "type": "text",
+      "options": []
+    }
+  ]
+}
